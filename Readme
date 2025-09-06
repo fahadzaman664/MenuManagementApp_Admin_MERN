@@ -1,0 +1,35 @@
+Summary
+We are seeking an experienced Full-Stack Developer with strong expertise in Node.js
+(backend) and React.js (frontend) to enhance and stabilize our Admin Panel application.
+The scope includes implementing new features for Menu Management and Order
+Management, along with addressing existing bug fixes to ensure the system runs smoothly.
+
+Key Responsibilities:
+1. Menu Management
+- Implement menu item listing with search functionality.
+- Add/Edit menu items with details (name, price, image, description, stock status).
+- Enable price updates and stock status toggle (In-stock/Out-of-stock).
+
+2. Order Management
+- Display order history and detailed order information.
+- Implement order status updates (Accept, Reject, Complete).
+- Assign orders to drivers from the admin panel.
+
+3. Bug Fixes & Optimization
+- Identify and fix existing issues within the admin dashboard.
+- Improve UI/UX where necessary for smoother navigation.
+- Ensure system stability and performance improvements.
+
+Requirements:
+- Proven experience in Node.js (Express/NestJS) and React.js.
+- Strong understanding of REST APIs and authentication (JWT/OAuth).
+- Ability to debug and fix issues quickly and efficiently.
+- Clean, maintainable coding practices with documentation.
+
+Deliverables:
+- Updated Admin Dashboard with fully functional Menu & Order Management
+    modules.
+- Resolved bugs ensuring stable and optimized performance.
+- Documented source code and basic deployment instructions.
+•	$
+

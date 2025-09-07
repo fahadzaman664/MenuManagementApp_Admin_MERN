@@ -4,6 +4,7 @@ import { dbConnect } from "./src/config/DataBaseConfig.js";
 import cors from 'cors'
 import path from "path"
 import menuRoutes from "./src/Routes/MenuRoutes.js";
+import orderRoutes from "./src/Routes/OrderManagementRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.static(path.join(path.resolve(), 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/menu', menuRoutes);
+app.use('/api/order', orderRoutes)
 
 app.use((cors({
     origin: [process.env.ORIGIN],

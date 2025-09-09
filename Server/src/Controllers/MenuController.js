@@ -3,8 +3,8 @@ import { cloudinary } from '../config/CloudinaryConfig.js';
 
 export const createMenu = async (req, res) => {
     try {
-        const { name, price, description, stockstatus } = req.body;
-        if ([name, price, description, stockstatus].some(fields => !fields)) {
+        const { name, price, description, category, stockstatus } = req.body;
+        if ([name, price, description, stockstatus, category].some(fields => !fields)) {
             return res.status(404).send("please fill all the required fields");
         }
         const filepath = req.file?.path;
@@ -18,9 +18,9 @@ export const createMenu = async (req, res) => {
         })
         console.log(cloudinaryRes);
         const newMenu = await new Menu({
-            name, price, image: cloudinaryRes.secure_url, description, stockstatus
+            name, price, image: cloudinaryRes.secure_url, description, category, stockstatus
         })
-       await newMenu.save();
+        await newMenu.save();
 
         res.status(200).json({ success: true, message: "menu item addedd succefuly", menu: newMenu })
 
@@ -39,14 +39,16 @@ export const updateMenu = async (req, res) => {
     try {
         const id = req.params.id;
         const updates = {};
-        const { name, price, description, stockstatus } = req.body;
-        if (req.body.name) {
-            updates.name = req.body.name;
+        const { name, price, description, stockstatus, category } = req.body;
+        if (name) {
+            updates.name = name;
         }
-        if (req.body.price) updates.price = req.body.price;
-        if (req.body.description) updates.description = req.body.description;
-        if (req.body.stockstatus) updates.stockstatus = req.body.stockstatus;
-       
+        if (price) updates.price = price;
+        if (description) updates.description = description;
+        if (stockstatus) updates.stockstatus = stockstatus;
+        if (category) updates.stockstatus = category;
+
+
         const filepath = req.file?.path;
         if (req.file?.path) {
             const cloudinaryRes = await cloudinary.uploader.upload(filepath, {

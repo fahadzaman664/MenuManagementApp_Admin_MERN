@@ -1,5 +1,6 @@
 import { timeStamp } from "console";
 import mongoose from "mongoose";
+import { type } from "os";
 const menuSchema = mongoose.Schema({
     name: {
         type: String,
@@ -16,6 +17,11 @@ const menuSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    category:{
+        type:String,
+        enum:["sandwich","salad","rice","chicken"],
+        default:"sandwich"
     },
     stockstatus: {
         type: String,

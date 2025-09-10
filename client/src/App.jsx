@@ -1,24 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {BrowserRouter as Router, Routes , Route} from 'react-router-dom'
-import Sidebar from './pages/sidebar-page'
+import { Toaster } from "sonner"
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Sidebar from "./pages/sidebar-page";
+import AddMenu from "./pages/AddMenu";
 
 function App() {
-
   return (
     <>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Sidebar />}/>
-      </Routes>
-
-    </Router>
-  
-       
+         <Toaster closeButton />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Sidebar />} />
+          <Route path="/addmenu" element={<AddMenu />} />
+        </Routes>
+      </Router>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

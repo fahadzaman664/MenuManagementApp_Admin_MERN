@@ -21,6 +21,7 @@ import {
 
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner"
 import {
   Collapsible,
   CollapsibleContent,
@@ -32,7 +33,7 @@ const menuItems = [
   {
     title: "Menus",
     submenus: [
-      { title: "Add New Menu", url: "/" },
+      { title: "Add New Menu", url: "/addmenu" },
       { title: "Category", url: "/category" },
       { title: "Menu List", url: "/menu-list" },
     ],
@@ -138,7 +139,7 @@ export function AppSidebar() {
 
       <div className="fixed top-8 left-4 z-50">
         <SidebarTrigger className="p-2 bg-white rounded-md shadow-md">
-          <Menu className="text-gray-700 cursor-pointer" />
+          <Menu className="text-gray-700 cursor-pointer  " />
         </SidebarTrigger>
       </div>
     </div>

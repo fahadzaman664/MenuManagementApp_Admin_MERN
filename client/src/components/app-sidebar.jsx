@@ -21,7 +21,7 @@ import {
 
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner"
+
 import {
   Collapsible,
   CollapsibleContent,
@@ -34,50 +34,50 @@ const menuItems = [
     title: "Menus",
     submenus: [
       { title: "Add New Menu", url: "/addmenu" },
-      { title: "Category", url: "/category" },
-      { title: "Menu List", url: "/menu-list" },
+      { title: "Category", url: "/" },
+      { title: "Menu List", url: "/menulist" },
     ],
   },
   {
     title: "Order",
     submenus: [
-      { title: "New Order", url: "/order/new" },
-      { title: "Order List", url: "/order/list" },
-      { title: "Order Settings", url: "/order/settings" },
+      { title: "New Order", url: "/" },
+      { title: "Order List", url: "/" },
+      { title: "Order Settings", url: "/" },
     ],
   },
   {
     title: "Customers",
     submenus: [
-      { title: "New Order", url: "/order/new" },
-      { title: "Order List", url: "/order/list" },
-      { title: "Order Settings", url: "/order/settings" },
+      { title: "New Order", url: "/" },
+      { title: "Order List", url: "/" },
+      { title: "Order Settings", url: "/" },
     ],
   },
   {
     title: "Home",
     icon: Home,
-    url: "/home",
+    url: "/",
   },
   {
     title: "Inbox",
     icon: Inbox,
-    url: "/inbox",
+    url: "/",
   },
   {
     title: "Calendar",
     icon: Calendar,
-    url: "/calendar",
+    url: "/",
   },
   {
     title: "Search",
     icon: Search,
-    url: "/search",
+    url: "/",
   },
   {
     title: "Settings",
     icon: Settings,
-    url: "/settings",
+    url: "/",
   },
 ];
 

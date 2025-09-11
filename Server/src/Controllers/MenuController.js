@@ -91,7 +91,7 @@ export const updateMenu = async (req, res) => {
 export const fetchAllMenu = async (req, res) => {
     try {
         const fetchedMenu = await Menu.find();
-        res.status(200).json({ success: true, menu: fetchedMenu });
+        res.status(200).json({menu: fetchedMenu});
     } catch (error) {
         console.error("Error in fetchAllMenu:", error);
         return res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });

@@ -5,6 +5,7 @@ import cors from 'cors'
 import path from "path"
 import menuRoutes from "./src/Routes/MenuRoutes.js";
 import orderRoutes from "./src/Routes/OrderManagementRoutes.js";
+import authRoutes from "./src/Routes/AuthRoutes.js";
 dotenv.config();
 
 const app = express();
@@ -22,6 +23,7 @@ app.use((cors({
 })))
 app.use('/api/menu', menuRoutes);
 app.use('/api/order', orderRoutes)
+app.use('/api/auth', authRoutes);
 
 app.use((cors({
     origin: [process.env.ORIGIN],

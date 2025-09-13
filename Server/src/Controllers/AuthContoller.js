@@ -24,7 +24,7 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new User({ name, email, password: hashedPassword }); 
+    const newUser = new User({ name, email, password: hashedPassword });
 
     await newUser.save();
 
@@ -52,7 +52,7 @@ export const login = async (req, res) => {
 
     const auth = await compare(password, existingUser.password);
     if (!auth) {
-      return res.status(400).send( {success:false,message:"Invalid credentials"});
+      return res.status(400).send({ success: false, message: "Invalid credentials" });
     }
 
     const token = createToken({ userRole: existingUser.role, userId: existingUser._id });
@@ -65,26 +65,47 @@ export const login = async (req, res) => {
 
 // getuserinfo
 export const getUserInfo = async (req, res, next) => {
-    try {
-        const userId = req.user.userId;
-        const userData = await User.findById(userId);
-        if (!userData) {
-            return res.status(404).send("user with the given not found");
-        }
-
-        res.status(200).json({
-            user: userData,
-            success: true,
-            message: "user data fetched successfully"
-        })
-
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: "Internal Server Error",
-            error: error.message
-        });
+  try {
+    const userId = req.user.userId;
+    const userData = await User.findById(userId);
+    if (!userData) {
+      return res.status(404).send("user with the given not found");
     }
+
+    res.status(200).json({
+      user: userData,
+      success: true,
+      message: "user data fetched successfully"
+    })
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message
+    });
+  }
 }
 
+export const fetchDrivers = async (req, res) => {
+  try {
+    // find all users with role "driver"
+    const drivers = await User.find({ role: "driver" }).select("name email");
+
+    if (!drivers.length) {
+      return res.status(404).json({ message: "No drivers found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      count: drivers.length,
+      drivers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
 

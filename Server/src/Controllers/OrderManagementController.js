@@ -28,7 +28,7 @@ export const placeOrder = async (req, res) => {
     }
 };
 
-export const assignToDriver = async (req, res) => {
+    export const assignToDriver = async (req, res) => {
     try {
         const { orderId, driverId } = req.body;
 
@@ -46,7 +46,7 @@ export const assignToDriver = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Order assigned to driver",
-            updatedOrder
+            updatedOrder:updatedOrder
         });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
@@ -95,7 +95,7 @@ export const deliveryStatus = async (req, res) => {
         if (deliveryStatus === "picked-up") {
             order.deliveryStatus = "assigned"
         }
-         if (deliveryStatus === "delivered") {
+        if (deliveryStatus === "delivered") {
             order.deliveryStatus = "complete"
         }
 
@@ -115,30 +115,48 @@ export const deliveryStatus = async (req, res) => {
 
 export const allOrders = async (req, res) => {
     try {
-        const role = req.user.role; // assuming you store role in JWT (admin/user/driver)
+        const role = req.user.userRole; // assuming you store role in JWT (admin/user/driver)
         const userId = req.user.userId;
 
         let query = {};
+        console.log(role)
+
 
         if (role === "user") {
             // user should only see their own orders
             query.orderby = userId;
         } else if (role === "driver") {
             // driver should only see orders assigned to them
+            console.log(role)
             query.driver = userId;
         }
         // admin will see all orders → no filter applied
 
         const orders = await Order.find(query)
             .populate("orderby", "name email")
-            .populate("driver", "name email")
+            .populate("driver","name email")
             .sort({ createdAt: -1 }); // newest first
+
+
+        // Format data for frontend
+        const formattedOrders = orders.map((order) => ({
+            id: order._id,
+            orderstatus: order.orderstatus,
+            name: order.orderby?.name || "Unknown",
+            itemname: order.itemname,
+            deliverystatus: order.deliveryStatus,
+            orderstatus: order.orderstatus,
+            assignedto:order.driver?.name,
+            address: order.address,
+            amount: order.price,
+        }));
 
         res.status(200).json({
             success: true,
-            count: orders.length,
-            orders,
+            count: formattedOrders.length,
+            orders: formattedOrders,
         });
+
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
     }

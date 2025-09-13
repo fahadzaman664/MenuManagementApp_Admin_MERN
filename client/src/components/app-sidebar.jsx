@@ -42,7 +42,7 @@ const menuItems = [
     title: "Order",
     submenus: [
       { title: "New Order", url: "/" },
-      { title: "Order List", url: "/" },
+      { title: "Order List", url: "/orderlist" },
       { title: "Order Settings", url: "/" },
     ],
   },

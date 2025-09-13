@@ -12,6 +12,7 @@ import { setUserInfo } from "./features/user.slice";
 import { Navigate } from "react-router-dom";
 import { AdminProtectedRoutes } from "./components/AdminProtectedRoutes";
 import MenuList from "./pages/MenuList";
+import OrderList from "./pages/orderlist/OrderList";
 
 function App() {
   const userData = useSelector((state) => state.user.userInfo);
@@ -69,6 +70,7 @@ function App() {
         />
         <Route path="/auth" element={<Auth />} />
         <Route path="/menulist" element={<MenuList />} />
+        <Route path="/orderlist" element={<OrderList />} />
 
         <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>

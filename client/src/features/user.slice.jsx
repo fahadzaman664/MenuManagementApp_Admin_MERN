@@ -2,10 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { createSlice } from "@reduxjs/toolkit";
 import {
   ADD_MENU_ROUTE,
+  ASSIGN_ORDER_TO_ROUTE,
+  CHANGE_ORDER_STATUS_ROUTE,
   FETCH_ALL_MENU_ROUTE,
+  FETCH_DRIVERS_ROUTE,
   GET_USER_INFO_ROUTE,
   HOST,
   LOGIN_ROUTE,
+  ORDER_LIST_ROURE,
+  ORDER_ROUTE,
+  PLACE_ORDER_ROURE,
   SIGNUP_ROUTE,
   UPDATE_MENU_ROUTE,
 } from "@/utils/constant";
@@ -58,6 +64,7 @@ export const userApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags:["Users"]
     }),
     getUserInfo: builder.query({
       query: () => ({
@@ -81,6 +88,50 @@ export const userApi = createApi({
         }),
         invalidatesTags:["Menu"]
       }),
+
+       placeOrder: builder.mutation({
+      query: (formData) => ({
+        url: PLACE_ORDER_ROURE,
+        method: "POST",
+        body:formData
+      }),
+      invalidatesTags: ["Order"],
+    }),
+     orderList: builder.query({
+      query: () => ({
+        url: ORDER_LIST_ROURE,
+        method: "GET",
+      }),
+      providesTags: ["Order"],
+    }),
+
+     // simple mutation (recommended)
+    updateOrderStatus: builder.mutation({
+      query: ({ orderId, status }) => ({
+        url: CHANGE_ORDER_STATUS_ROUTE,
+        method: "PUT",
+        body: {orderId, status },
+      }),
+      invalidatesTags: ["Order"], 
+    }),
+    fetchDrivers: builder.query({
+      query: () => ({
+        url: FETCH_DRIVERS_ROUTE,
+        method: "GET",
+      }),
+      providesTags: ["Users"], 
+    }),
+      // simple mutation (recommended)
+    assignTo: builder.mutation({
+      query: ({ orderId, driverId }) => ({
+        url: ASSIGN_ORDER_TO_ROUTE,
+        method: "POST",
+        body: {orderId, driverId },
+      }),
+      invalidatesTags: ["Order"], 
+    }),
+    
+
   }),
 });
 
@@ -90,7 +141,12 @@ export const {
   useUserSignUpMutation,
   useGetUserInfoQuery,
   useFetchMenusQuery,
-  useUpdateMenuMutation
+  useUpdateMenuMutation,
+  usePlaceOrderMutation,
+  useOrderListQuery,
+  useUpdateOrderStatusMutation,
+  useFetchDriversQuery,
+  useAssignToMutation
 } = userApi;
 export const userReducer = userSlice.reducer;
 export const { setUserInfo } = userSlice.actions;

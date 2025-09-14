@@ -4,6 +4,7 @@ import {
   ADD_MENU_ROUTE,
   ASSIGN_ORDER_TO_ROUTE,
   CHANGE_ORDER_STATUS_ROUTE,
+  DRIVER_ORDERS_ROUTE,
   FETCH_ALL_MENU_ROUTE,
   FETCH_DRIVERS_ROUTE,
   GET_USER_INFO_ROUTE,
@@ -130,6 +131,14 @@ export const userApi = createApi({
       }),
       invalidatesTags: ["Order"], 
     }),
+
+      orderAssignedToDriver: builder.query({
+      query: () => ({
+        url: DRIVER_ORDERS_ROUTE,
+        method: "GET",
+      }),
+      providesTags: ["Order"] 
+    }),
     
 
   }),
@@ -146,7 +155,8 @@ export const {
   useOrderListQuery,
   useUpdateOrderStatusMutation,
   useFetchDriversQuery,
-  useAssignToMutation
+  useAssignToMutation,
+  useOrderAssignedToDriverQuery
 } = userApi;
 export const userReducer = userSlice.reducer;
 export const { setUserInfo } = userSlice.actions;

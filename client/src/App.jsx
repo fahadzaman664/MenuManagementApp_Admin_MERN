@@ -9,10 +9,12 @@ import { useGetUserInfoQuery } from "./features/user.slice";
 import React from "react";
 import { useEffect } from "react";
 import { setUserInfo } from "./features/user.slice";
-import { Navigate } from "react-router-dom";
 import { AdminProtectedRoutes } from "./components/AdminProtectedRoutes";
 import MenuList from "./pages/MenuList";
 import OrderList from "./pages/orderlist/OrderList";
+import { AdminAndDriverProtectedRoutes } from "./components/ui/AdminAndDriverProtectedRoute";
+import DriverOrders from "./pages/DriverOrders/DriverOrders";
+import LogOut from "./components/LogOut";
 
 function App() {
   const userData = useSelector((state) => state.user.userInfo);
@@ -71,8 +73,16 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/menulist" element={<MenuList />} />
         <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/logout" element={<LogOut />} />
 
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route
+          path="/driverorders"
+          element={
+            <AdminAndDriverProtectedRoutes>
+              <DriverOrders />
+            </AdminAndDriverProtectedRoutes>
+          }
+        />
       </Routes>
     </>
   );

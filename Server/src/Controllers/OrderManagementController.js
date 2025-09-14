@@ -28,7 +28,7 @@ export const placeOrder = async (req, res) => {
     }
 };
 
-    export const assignToDriver = async (req, res) => {
+export const assignToDriver = async (req, res) => {
     try {
         const { orderId, driverId } = req.body;
 
@@ -46,7 +46,7 @@ export const placeOrder = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Order assigned to driver",
-            updatedOrder:updatedOrder
+            updatedOrder: updatedOrder
         });
     } catch (error) {
         res.status(500).json({ message: "Server error", error: error.message });
@@ -134,7 +134,7 @@ export const allOrders = async (req, res) => {
 
         const orders = await Order.find(query)
             .populate("orderby", "name email")
-            .populate("driver","name email")
+            .populate("driver", "name email")
             .sort({ createdAt: -1 }); // newest first
 
 
@@ -146,7 +146,7 @@ export const allOrders = async (req, res) => {
             itemname: order.itemname,
             deliverystatus: order.deliveryStatus,
             orderstatus: order.orderstatus,
-            assignedto:order.driver?.name,
+            assignedto: order.driver?.name,
             address: order.address,
             amount: order.price,
         }));
@@ -161,4 +161,20 @@ export const allOrders = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+export const driverOrders = async (req, res) => {
+  try {
+    const driverId = req.user.userId; 
 
+    const orders = await Order.find({ driver: driverId })
+      .populate("orderby", "name email") 
+
+    if (orders.length === 0) {
+      return res.status(404).json({ message: "No assigned orders found" });
+    }
+
+    res.status(200).json({ orders });
+  } catch (error) {
+    console.error("Error fetching driver orders:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};

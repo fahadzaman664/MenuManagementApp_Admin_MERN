@@ -17,3 +17,4 @@ export const ORDER_LIST_ROURE = `${ORDER_ROUTE}/allorders`;
 export const CHANGE_ORDER_STATUS_ROUTE=`${ORDER_ROUTE}/change-order-status`;
 export const FETCH_DRIVERS_ROUTE =`${AUTH_ROUTE}/drivers`;
 export const ASSIGN_ORDER_TO_ROUTE=`${ORDER_ROUTE}/order-assign-driver`
+export const DRIVER_ORDERS_ROUTE = `${ORDER_ROUTE}/driver-orders`

@@ -4,6 +4,7 @@ import {
   Inbox,
   Search,
   Settings,
+  LogOut,
   ChevronDown,
   ChevronsRight,
 } from "lucide-react";
@@ -43,7 +44,7 @@ const menuItems = [
     submenus: [
       { title: "New Order", url: "/" },
       { title: "Order List", url: "/orderlist" },
-      { title: "Order Settings", url: "/" },
+      { title: "Assigned to driver", url: "/driverorders" },
     ],
   },
   {
@@ -75,9 +76,9 @@ const menuItems = [
     url: "/",
   },
   {
-    title: "Settings",
-    icon: Settings,
-    url: "/",
+    title: "Sign Out",
+    icon: LogOut ,
+    url: "/logout",
   },
 ];
 
